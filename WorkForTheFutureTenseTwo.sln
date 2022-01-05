@@ -3,7 +3,49 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkerConsole", "ConsoleWorker\WorkerConsole.csproj", "{409D784A-247C-48BC-8AE6-F6ACAA0AB37E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibAsync", "AsyncLib\LibAsync.csproj", "{1CABEF94-60DB-40DA-92D0-546AE46C900F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibMultiThread", "MultiThreadLib\LibMultiThread.csproj", "{DBD62CBE-EFAB-44CD-94F2-D7F0E54AC716}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkerWinForms", "WinFormsWorker\WorkerWinForms.csproj", "{36CDC0A7-63C9-473F-BDF4-5A3EC787A311}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkerApi", "WorkerApi\WorkerApi.csproj", "{C1CEB2BE-2F42-460C-91E7-107C7D768926}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibAsyncLock", "LibAsyncLock\LibAsyncLock.csproj", "{977A664C-C401-4190-BA17-F4715061BB79}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{409D784A-247C-48BC-8AE6-F6ACAA0AB37E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{409D784A-247C-48BC-8AE6-F6ACAA0AB37E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{409D784A-247C-48BC-8AE6-F6ACAA0AB37E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{409D784A-247C-48BC-8AE6-F6ACAA0AB37E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CABEF94-60DB-40DA-92D0-546AE46C900F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CABEF94-60DB-40DA-92D0-546AE46C900F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CABEF94-60DB-40DA-92D0-546AE46C900F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CABEF94-60DB-40DA-92D0-546AE46C900F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBD62CBE-EFAB-44CD-94F2-D7F0E54AC716}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBD62CBE-EFAB-44CD-94F2-D7F0E54AC716}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBD62CBE-EFAB-44CD-94F2-D7F0E54AC716}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBD62CBE-EFAB-44CD-94F2-D7F0E54AC716}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36CDC0A7-63C9-473F-BDF4-5A3EC787A311}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36CDC0A7-63C9-473F-BDF4-5A3EC787A311}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36CDC0A7-63C9-473F-BDF4-5A3EC787A311}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36CDC0A7-63C9-473F-BDF4-5A3EC787A311}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1CEB2BE-2F42-460C-91E7-107C7D768926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1CEB2BE-2F42-460C-91E7-107C7D768926}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1CEB2BE-2F42-460C-91E7-107C7D768926}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1CEB2BE-2F42-460C-91E7-107C7D768926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{977A664C-C401-4190-BA17-F4715061BB79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{977A664C-C401-4190-BA17-F4715061BB79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{977A664C-C401-4190-BA17-F4715061BB79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{977A664C-C401-4190-BA17-F4715061BB79}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

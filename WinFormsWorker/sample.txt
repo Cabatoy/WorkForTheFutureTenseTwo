@@ -1,0 +1,68 @@
+
+GO
+/****** Object:  StoredProcedure [dbo].[usp_CalculateChurnScore]    Script Date: 11/8/2021 10:28:34 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[usp_CalculateChurnScore]
+@DATE as date
+AS
+BEGIN
+
+--churn score hesaplar ve contact üzerindeki gerekli alanları günceller
+with
+FoundedContact as (
+	select P.rms_insuredcustomerid 
+	from 
+	where --P.rms_policystatuscode = 1 and 
+		cast(P.rms_churnmodifieddate as date) = cast(@DATE as date)
+	group by P.rms_insuredcustomerid
+)
+,CalculatedChurnContact as  (
+	select
+		C.rms_insuredcustomerid, 
+		MAX(P.rms_churnscore) as ChurnScore,
+		case when MAX(P.rms_churnscore) between 0 and 50 then 0 when MAX(P.rms_churnscore) between 51 and 70 then 1 when MAX(P.rms_churnscore) between 71 and 100 then 2 end as ChurnText
+	from FoundedContact C
+	inner join 
+	on C.rms_insuredcustomerid = P.rms_insuredcustomerid
+	where P.statecode = 0  and P.rms_policystatuscode = 1 and P.rms_churnscore is not null 
+	GROUP BY C.rms_insuredcustomerid
+)
+Update Contact set
+rms_leavingpossibility = ChurnText,
+rms_policychurnscore = ChurnScore
+from 
+inner join CalculatedChurnContact calc
+ on calc.rms_insuredcustomerid = Contact.ContactId
+
+ -- 2.select aktif olmayan poliçeler
+
+   select
+         c.rms_insuredcustomerid,
+         sum(case when c.rms_policystatuscode = 1 then 1 else 0 end) as AktifOlanToplam,
+         COUNT(c.rms_insuredcustomerid) as Toplam
+	into #temp2 
+    from 
+    where cast(c.rms_churnmodifieddate as date) = cast(@DATE as date)
+    group by c.rms_insuredcustomerid
+
+	UPDATE     
+	SET           
+		rms_leavingpossibility = NULL,
+		rms_segmentstarcount = NULL
+FROM          
+INNER JOIN    #temp2 T
+ON            C.ContactId = T.rms_insuredcustomerid
+where T.AktifOlanToplam =0
+
+drop table #temp2
+
+
+END
