@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibAsync;
+using System;
 using System.Text;
 
 namespace WorkerConsole
@@ -7,8 +8,13 @@ namespace WorkerConsole
     {
         static void Main(string[] args)
         {
-            
+            // AsyncMethodsExtension methods=new AsyncMethodsExtension();
+            //var objjj = methods.TaskContinue();
+            //var objj = methods.TaskContinueSampleWithEtcJobs();
 
+            //var obj = AsyncMethodsExtension.TaskWhenAll();
+            var objs = AsyncMethodsExtension.TaskWhenAny();
+            Console.ReadLine();
         }
     }
 }
