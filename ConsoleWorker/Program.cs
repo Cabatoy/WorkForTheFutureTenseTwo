@@ -8,13 +8,15 @@ namespace WorkerConsole
     {
         static void Main(string[] args)
         {
-            // AsyncMethodsExtension methods=new AsyncMethodsExtension();
-            //var objjj = methods.TaskContinue();
-            //var objj = methods.TaskContinueSampleWithEtcJobs();
+            // AsyncMethodsExtension methods=new AsyncMethodsExtension(;
+            //var objjj = methods.TaskContinue(;
+            //var objj = methods.TaskContinueSampleWithEtcJobs(;
 
-            //var obj = AsyncMethodsExtension.TaskWhenAll();
-            var objs = AsyncMethodsExtension.TaskWhenAny();
+            //var obj = AsyncMethodsExtension.TaskWhenAll(;
+           // var objs = AsyncMethodsExtension.TaskWhenAny();
+            AsyncMethodsExtension.TaskWaitAny();
             Console.ReadLine();
+
         }
     }
 }

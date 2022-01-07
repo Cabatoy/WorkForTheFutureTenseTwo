@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -36,6 +37,7 @@ namespace LibAsync
         #endregion
 
 
+
         #region whenAll
 
         public class Content
@@ -46,21 +48,8 @@ namespace LibAsync
 
         public async static Task TaskWhenAll()
         {
-            Console.WriteLine("Main ThreadId=>{0}",Thread.CurrentThread.ManagedThreadId);
-            List<string> lst = new List<string>();
-            lst.Add("https://www.google.com/");
-            lst.Add("https://www.amazon.com/");
-            lst.Add("https://www.mynet.com/");
-            lst.Add("https://www.oracle.com/");
-            lst.Add("https://www.twitter.com/");
-            lst.Add("https://www.hurriyet.com/");
-
             List<Task<Content>> tasklist = new List<Task<Content>>();
-            lst.ToList().ForEach(x =>
-            {
-                tasklist.Add(GetContent(x));
-            });
-
+            tasklist = getList();
 
             var contects = Task.WhenAll(tasklist.ToArray());
             var data = await contects;
@@ -86,6 +75,71 @@ namespace LibAsync
         #region whenAny
         public async static Task TaskWhenAny()
         {
+            List<Task<Content>> tasklist = new List<Task<Content>>();
+            tasklist = getList();
+            var firstData = await Task.WhenAny(tasklist.ToArray());
+            Console.WriteLine($"{firstData.Result.Site}---{firstData.Result.Lenght}");
+        }
+
+
+        #endregion
+
+
+
+        #region waitAll  //bloklama yapar.
+        public async static Task TaskWaitAll()
+        {
+            List<Task<Content>> tasklist = new List<Task<Content>>();
+            tasklist = getList();
+            Stopwatch st = new Stopwatch();
+
+            Console.WriteLine($"İşlemler Başlıyor.Saat={DateTime.Now.ToShortTimeString()}");
+            st.Start();
+            Task.WaitAll(tasklist.ToArray()); //İşlemler bitene kadar bir alt satıra geçmez. aslında asekron yapıda sekron bir işlem gibi çalışır.
+
+            var val = Task.WaitAll(tasklist.ToArray(),3000);  //verilen sure kadar zamanda islem biterse true bitmezse false döner . performans takibi yapılabilir.
+
+            st.Stop();
+            Console.WriteLine($"İşlemler Bitti.Saat={DateTime.Now.ToShortTimeString()}  -- Gecen Sure={st.Elapsed.TotalSeconds} saniye");
+
+        }
+
+        #endregion
+
+        #region waitAny   //bloklama yapar.
+        public async static Task TaskWaitAny()
+        {
+            List<Task<Content>> tasklist = new List<Task<Content>>();
+            tasklist = getList();
+            Stopwatch st = new Stopwatch();
+
+            Console.WriteLine($"İşlemler Başlıyor.Saat={DateTime.Now.ToShortTimeString()}");
+            st.Start();
+
+
+            var val = Task.WaitAny(tasklist.ToArray());  // ilk tamamlanan arkadaşın bilgilerini döner.
+            var vale = Task.WaitAny(tasklist.ToArray(),300);  //verilen süre içerisinde ilk tamamlanan arkadaşın bilgilerini döner.
+
+
+            Console.WriteLine($"Süresiz çalıştırıldığında dönen cevap  {tasklist[val].Result.Site}");
+            Console.WriteLine($"Süresiz çalıştırıldığında dönen cevap  {tasklist[vale].Result.Site}");
+
+            st.Stop();
+            Console.WriteLine($"İşlemler Bitti.Saat={DateTime.Now.ToShortTimeString()}  -- Gecen Sure={st.Elapsed.TotalSeconds} saniye");
+
+        }
+
+
+
+        #endregion
+
+
+
+
+
+
+        private static List<Task<Content>> getList()
+        {
             Console.WriteLine("Main ThreadId=>{0}",Thread.CurrentThread.ManagedThreadId);
             List<string> lst = new List<string>();
             lst.Add("https://www.google.com/");
@@ -100,12 +154,7 @@ namespace LibAsync
             {
                 tasklist.Add(GetContent(x));
             });
-            var firstData = await Task.WhenAny(tasklist.ToArray());
-            Console.WriteLine($"{firstData.Result.Site}---{firstData.Result.Lenght}");
+            return tasklist;
         }
-
-
-        #endregion
-
     }
 }
