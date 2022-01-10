@@ -14,7 +14,7 @@ namespace WorkerConsole
 
             //var obj = AsyncMethodsExtension.TaskWhenAll(;
            // var objs = AsyncMethodsExtension.TaskWhenAny();
-            AsyncMethodsExtension.TaskWaitAny();
+            //AsyncMethodsExtension.TaskWaitAny();
             Console.ReadLine();
 
         }
